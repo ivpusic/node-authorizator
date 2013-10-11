@@ -1,0 +1,14 @@
+{
+  "name": "authorizator",
+  "version": "0.0.0",
+  "description": "authorization module for node",
+  "main": "./lib/authorizator/",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ivan Pusic",
+  "license": "MIT",
+  "dependencies": {
+    "node.extend": "~1.0.8"
+  }
+}
