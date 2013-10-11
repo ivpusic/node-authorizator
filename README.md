@@ -7,7 +7,7 @@ Node module for user authorization based on different authorization policies.
 
 To install authorizator use following command:
 
-```
+```Shell
 npm install authorizator
 ```
 
