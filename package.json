@@ -1,14 +1,34 @@
 {
   "name": "authorizator",
-  "version": "0.0.0",
-  "description": "authorization module for node",
+  "version": "0.0.1",
+  "description": "Node module for user authorization",
   "main": "./lib/authorizator/",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "directories": {
+    "test": "test"
   },
-  "author": "Ivan Pusic",
-  "license": "MIT",
   "dependencies": {
     "node.extend": "~1.0.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ivpusic/node-authorizator.git"
+  },
+  "keywords": [
+    "node",
+    "authorization",
+    "authentication",
+    "user",
+    "policy",
+    "express",
+    "connect"
+  ],
+  "author": "Ivan Pusic",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/ivpusic/node-authorizator/issues"
   }
 }
