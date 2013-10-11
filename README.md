@@ -64,7 +64,12 @@ First let's include ``ActionBasedPolicy`` in our node app:
 ```JavaScript
 var ActionBasedPolicy = require('authorizator').ActionBasedPolicy;
 ```
-Next you need to define your roles and their actions. Let's define admin and moderator roles.
+Then you need to call ``use`` function with new ``ActionBasedPolicy`` instance as parameter:
+```JavaScript
+authorizator.use(new ActionBasedPolicy()); 
+```
+
+Then you need to define your roles and their actions. Let's define admin and moderator roles.
 
 ```JavaScript
 var moderator = authorizator.addRole('moderator').can(['edit users', 'remove users']);
@@ -75,16 +80,13 @@ We can see that we use ``can`` function to pass list of actions which role can e
 ``inherits`` method to inherit actions from some other role.
 
 Now if you want see all actions which some role can execute, you can use:
-
 ```JavaScript
 admin.actions();
 ```
-
 If you want to see all registeres roles, use:
 ```JavaScript
 authorizator.roles();
 ```
-
 At the end, when you want to authorize role use following:
 
 ```JavaScript
