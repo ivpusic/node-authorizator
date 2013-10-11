@@ -1,4 +1,4 @@
-node-authorizator
+node-authorizator [![Build Status](https://travis-ci.org/ivpusic/node-authorizator.png?branch=master)](https://travis-ci.org/ivpusic/node-authorizator)
 =================
 
 Node module for user authorization based on different authorization policies.
