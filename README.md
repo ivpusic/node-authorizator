@@ -80,6 +80,11 @@ Now if you want see all actions which some role can execute, you can use:
 admin.actions();
 ```
 
+If you want to see all registeres roles, use:
+```
+authorizator.roles();
+```
+
 At the end, when you want to authorize role use following:
 
 ```
