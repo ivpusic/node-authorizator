@@ -38,10 +38,16 @@ Next, you need to call authorizator ``use`` function, to say authorizator to use
 You can use multiple policies to authorize users. 
 Let's we say that we want use ``ActionBasedPolicy`` (will be described soon), you can use following:
 ```
-authorizator.use(new ActionBasedPolicy()); 
+var policy = new ActionBasedPolicy();
+authorizator.use(policy); 
 ```
 
 If you don't provide any policies, authorizator will throw ``Error``.
+
+You can also remove policy from authorizator with ``unuse`` function:
+```Javascript
+authorizator.unuse(policy);
+```
 
 Authorizator core uses ``Strategy`` design pattern, and in this case strategies represents policies, 
 and each policy represents way on which you want to authorize user.
