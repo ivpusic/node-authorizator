@@ -108,12 +108,12 @@ otherwise user will get ``Error 401``
 
 Earlier we saw one policy for authorizing users. Authorizator provide another one, so let's explain what is ``RoleBasedPolicy``.
 
-Let we say that we have defined two roles. Admin and moderator. Now we need to define some action. Let we define action with name ``edit profile``.
-I previous policy we have binded actions directly to users with ``can`` function, but in this case we won't do that.
+Let we say that we have defined two roles. Admin and moderator. Now we need to define some actions. Let we define action with name ``edit users``.
+In previous policy we have binded actions directly to users with ``can`` function, but in this case we won't do that.
 
 Instead of that, we say which minimum roles, or which roles in general are needed to execute some action.
 
-So let's see hot it look in practice.
+So let's see how it looks like in practice.
 
 Define two new roles.
 ```Javascript
@@ -126,14 +126,14 @@ After that define some action.
 var editUsersAction = authorizator.addAction('edit users');
 ```
 
-For that action define specify roles which can execute action.
+For that action specify roles which can execute action.
 ```JavaScript
 editUsersAction.requires(admin, moderator);
 // note that we can also specify actual names of actions if we don't have their references
 // editUsersAction.requires('admin', 'moderator');
 ```
 
-And that is it. Now you can call ``wants`` method on some of your router to authorize user.
+And that is it. Now you can call ``wants`` method on some of your routes to authorize user.
 ```JavaScript
 app.post('/some/restricted/path', authorizator.wants('edit users'), function (req, res) { 
   // only authorized users can execute this code 
@@ -144,18 +144,17 @@ But wait. ``RoleBasedPolicy`` offer also another way to specify users which can 
 
 Let's we say that we have defined ``admin``, ``moderator`` and ``editUsersAction`` variables as previous ones.
 
-You can also do something like this:
+You can do something like this:
 
 ```JavaScript
 editUsersAction.minRole(admin);
 editUsersAction.rolePriority(admin, moderator);
 ```
 
-What happened here? So with first line we say that minimum role required for this action is administrator.
-But ``authorizator`` doesn't know anything about priority order of role, to because of that with second line
-we tell ``authorizator`` how role priority looks like.
+What happened here? So with first line we say that minimum required role for this action is ``administrator``.
+But ``authorizator`` doesn't know anything about priority order of roles, and because of that with second line we tell ``authorizator`` how role priority looks like.
 
-Priority is specified from highest to lowest. So in this case, if user has role moderator, he will be rejected from 
+Priority is specified from highest to lowest. In this case, if user has role moderator, he will be rejected from 
 executing action, because minimum role for this action is admin. After specifing this, we call ``wants`` method
 on standard way:
 ```JavaScript
