@@ -133,7 +133,7 @@ editUsersAction.requires(admin, moderator);
 
 And that is it. Now you can call ``wants`` method on some of your router to authorize user.
 ```JavaScript
-app.post('/some/restricted/path', authorizator.wants('edit profile'), function (req, res) { 
+app.post('/some/restricted/path', authorizator.wants('edit users'), function (req, res) { 
   // only authorized users can execute this code 
 }
 ```
@@ -157,7 +157,7 @@ Priority is specified from highest to lowest. So in this case, if user has role 
 executing action, because minimum role for this action is admin. After specifing this, we call ``wants`` method
 on standard way:
 ```JavaScript
-app.post('/some/restricted/path', authorizator.wants('edit profile'), function (req, res) { 
+app.post('/some/restricted/path', authorizator.wants('edit users'), function (req, res) { 
   // only authorized users can execute this code 
 }
 ```
@@ -197,7 +197,7 @@ authorizator.use(SomeAuthorizationPolicy);
 
 Function for removing some authorization policy from ``authorizator``:
 ```JavaScript
-authorizator.unuse(SomeAuthorizationPolicy)'
+authorizator.unuse(SomeAuthorizationPolicy)
 ```
 
 ### TODO
