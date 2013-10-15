@@ -1,14 +1,12 @@
 {
   "name": "authorizator",
-  "version": "0.3.0",
+  "version": "1.0.1",
   "description": "Node module for user authorization",
   "main": "./lib/authorizator/",
   "directories": {
     "test": "test"
   },
-  "dependencies": {
-    "node.extend": "~1.0.8"
-  },
+  "dependencies": {},
   "devDependencies": {
     "mocha": "~1.13.0"
   },
