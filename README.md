@@ -104,7 +104,7 @@ otherwise user will get ``Error 401``
 
 #### RoleBasedPolicy
 
-Earlier we saw one policy for authorizing users. Authorizator provide another one, to let's explain what is ``RoleBasedPolicy``.
+Earlier we saw one policy for authorizing users. Authorizator provide another one, so let's explain what is ``RoleBasedPolicy``.
 
 Let we say that we have defined two roles. Admin and moderator. Now we need to define some action. Let we define action with name ``edit profile``.
 I previous policy we have binded actions directly to users with ``can`` function, but in this case we won't do that.
