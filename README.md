@@ -1,6 +1,8 @@
 node-authorizator [![Build Status](https://travis-ci.org/ivpusic/node-authorizator.png?branch=master)](https://travis-ci.org/ivpusic/node-authorizator)
 =================
 
+[![NPM](https://nodei.co/npm/authorizator.png)](https://nodei.co/npm/authorizator/)
+
 Node module for user authorization based on different authorization policies.
 
 ### Installation
