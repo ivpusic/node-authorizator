@@ -1,6 +1,6 @@
 {
   "name": "authorizator",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "Node module for user authorization",
   "main": "./lib/authorizator/",
   "directories": {
