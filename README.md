@@ -203,3 +203,7 @@ authorizator.unuse(SomeAuthorizationPolicy)'
 ### TODO
 - Example app
 - Tests
+
+## Contact
+
+If you have any questions or issues, you can open new issue, or contact me directly on pusic007@gmail.com
