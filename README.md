@@ -13,7 +13,7 @@ npm install authorizator
 
 ### How to use authorizator?
 
-First you need to ``reqire`` authorizator module:
+First you need to ``require`` authorizator module:
 
 ```JavaScript
 var authorizator = require('authorizator');
@@ -38,14 +38,13 @@ Next, you need to call authorizator ``use`` function, to say authorizator to use
 You can use multiple policies to authorize users. 
 Let's we say that we want use ``ActionBasedPolicy`` (will be described soon), you can use following:
 ```JavaScript
-var policy = new ActionBasedPolicy();
-authorizator.use(policy); 
+authorizator.use(ActionBasedPolicy); 
 ```
 If you don't provide any policies, authorizator will throw ``Error``.
 
 You can also remove policy from authorizator with ``unuse`` function:
 ```Javascript
-authorizator.unuse(policy);
+authorizator.unuse(ActionBasedPolicy);
 ```
 
 Authorizator core uses ``Strategy`` design pattern, and in this case strategies represents policies, 
@@ -53,7 +52,7 @@ and each policy represents way on which you want to authorize user.
 
 
 You can add your own policies, or use some of authorizator default policies. 
-Currently ``ActionBasedPolicy`` is implemented and ``RoleBasedPolicy`` will be available soon.
+Currently ``ActionBasedPolicy`` and ``RoleBasedPolicy`` are implemented.
 
 #### ActionBasedPolicy
 
@@ -71,18 +70,18 @@ var ActionBasedPolicy = require('authorizator').ActionBasedPolicy;
 ```
 Then you need to call ``use`` function with new ``ActionBasedPolicy`` instance as parameter:
 ```JavaScript
-authorizator.use(new ActionBasedPolicy()); 
+authorizator.use(ActionBasedPolicy); 
 ```
 
 Then you need to define your roles and their actions. Let's define admin and moderator roles.
 
 ```JavaScript
-var moderator = authorizator.addRole('moderator').can(['edit users', 'remove users']);
-var admin = authorizator.addRole('admin').can(['remove moderator', 'add moderator']).inherits('moderator');
+var moderator = authorizator.addRole('moderator').can('edit users', 'remove users');
+var admin = authorizator.addRole('admin').can('remove moderator', 'add moderator').inherits('moderator');
 ```
 
-We can see that we use ``can`` function to pass list of actions which role can execute, and optionally call 
-``inherits`` method to inherit actions from some other role.
+We can see that we use ``can`` function to pass list of actions (action names or action instances) which role can execute, and optionally call 
+``inherits`` method to inherit actions from some other role (we pass role instance or role name).
 
 Now if you want see all actions which some role can execute, you can use:
 ```JavaScript
@@ -105,9 +104,102 @@ otherwise user will get ``Error 401``
 
 #### RoleBasedPolicy
 
-soon....
+Earlier we saw one policy for authorizing users. Authorizator provide another one, to let's explain what is ``RoleBasedPolicy``.
+
+Let we say that we have defined two roles. Admin and moderator. Now we need to define some action. Let we define action with name ``edit profile``.
+I previous policy we have binded actions directly to users with ``can`` function, but in this case we won't do that.
+
+Instead of that, we say which minimum roles, or which roles in general are needed to execute some action.
+
+So let's see hot it look in practice.
+
+Define two new roles.
+```Javascript
+var admin = authorizator.addRole('admin');
+var moderator = authorizator.addRole('moderator');
+```
+
+After that define some action.
+```Javascript
+var editUsersAction = authorizator.addAction('edit users');
+```
+
+For that action define specify roles which can execute action.
+```
+editUsersAction.requires(admin, moderator);
+// note that we can also specify actual names of actions if we don't have their references
+// editUsersAction.requires('admin', 'moderator');
+```
+
+And that is it. Now you can call ``wants`` method on some of your router to authorize user.
+```
+app.post('/some/restricted/path', authorizator.wants('edit profile'), function (req, res) { 
+  // only authorized users can execute this code 
+}
+```
+
+But wait. ``RoleBasedPolicy`` offer also another way to specify users which can execute action. 
+
+Let's we say that we have defined ``admin``, ``moderator`` and ``editUsersAction`` variables as previous ones.
+
+You can also do something like this:
+
+```
+editUsersAction.minRole(admin);
+editUsersAction.rolePriority(admin, moderator);
+```
+
+What happened here? So with first line we say that minimum role required for this action is administrator.
+But ``authorizator`` doesn't know anything about priority order of role, to because of that with second line
+we tell ``authorizator`` how role priority looks like.
+
+Priority is specified from highest to lowest. So in this case, if user has role moderator, he will be rejected from 
+executing action, because minimum role for this action is admin. After specifing this, we call ``wants`` method
+on standard way:
+```
+app.post('/some/restricted/path', authorizator.wants('edit profile'), function (req, res) { 
+  // only authorized users can execute this code 
+}
+```
+
+### Auxiliry functions
+
+#### getRole
+
+Function for getting some role by name:
+```Javascript
+var role = authorizator.getRole('roleName');
+```
+
+#### getAction
+
+Function for getting some action by name:
+```Javascript
+var action = authorizator.getAction('actionName');
+```
+
+#### roles
+
+Function for getting all defined roles:
+
+```Javascript
+var roles = authorizator.roles();
+```
+
+#### use
+
+Function for adding new authorization policy to ``authorizator``:
+```Javascript
+authorizator.use(SomeAuthorizationPolicy);
+```
+
+#### unuse
+
+Function for removing some authorization policy from ``authorizator``:
+```Javascript
+authorizator.unuse(SomeAuthorizationPolicy)'
+```
 
 ### TODO
-- RoleBasedPolicy
 - Example app
 - Tests
