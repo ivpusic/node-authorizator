@@ -125,14 +125,14 @@ var editUsersAction = authorizator.addAction('edit users');
 ```
 
 For that action define specify roles which can execute action.
-```
+```JavaScript
 editUsersAction.requires(admin, moderator);
 // note that we can also specify actual names of actions if we don't have their references
 // editUsersAction.requires('admin', 'moderator');
 ```
 
 And that is it. Now you can call ``wants`` method on some of your router to authorize user.
-```
+```JavaScript
 app.post('/some/restricted/path', authorizator.wants('edit profile'), function (req, res) { 
   // only authorized users can execute this code 
 }
@@ -144,7 +144,7 @@ Let's we say that we have defined ``admin``, ``moderator`` and ``editUsersAction
 
 You can also do something like this:
 
-```
+```JavaScript
 editUsersAction.minRole(admin);
 editUsersAction.rolePriority(admin, moderator);
 ```
@@ -156,7 +156,7 @@ we tell ``authorizator`` how role priority looks like.
 Priority is specified from highest to lowest. So in this case, if user has role moderator, he will be rejected from 
 executing action, because minimum role for this action is admin. After specifing this, we call ``wants`` method
 on standard way:
-```
+```JavaScript
 app.post('/some/restricted/path', authorizator.wants('edit profile'), function (req, res) { 
   // only authorized users can execute this code 
 }
@@ -167,14 +167,14 @@ app.post('/some/restricted/path', authorizator.wants('edit profile'), function (
 #### getRole
 
 Function for getting some role by name:
-```Javascript
+```JavaScript
 var role = authorizator.getRole('roleName');
 ```
 
 #### getAction
 
 Function for getting some action by name:
-```Javascript
+```JavaScript
 var action = authorizator.getAction('actionName');
 ```
 
@@ -182,21 +182,21 @@ var action = authorizator.getAction('actionName');
 
 Function for getting all defined roles:
 
-```Javascript
+```JavaScript
 var roles = authorizator.roles();
 ```
 
 #### use
 
 Function for adding new authorization policy to ``authorizator``:
-```Javascript
+```JavaScript
 authorizator.use(SomeAuthorizationPolicy);
 ```
 
 #### unuse
 
 Function for removing some authorization policy from ``authorizator``:
-```Javascript
+```JavaScript
 authorizator.unuse(SomeAuthorizationPolicy)'
 ```
 
