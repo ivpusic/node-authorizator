@@ -24,7 +24,7 @@ var authorizator = require('authorizator');
 Next you need to say your node app to use and init authorizator module.
 
 ```JavaScript
-app.use(passport.initialize({'role': 'user.role'}));
+app.use(authorizator.initialize({'role': 'user.role'}));
 ```
 
 Above function inits main parts of authorizator module. You can also pass some options to authorizator module.
