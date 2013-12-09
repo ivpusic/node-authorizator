@@ -3,7 +3,9 @@ node-authorizator [![Build Status](https://travis-ci.org/ivpusic/node-authorizat
 
 [![NPM](https://nodei.co/npm/authorizator.png)](https://nodei.co/npm/authorizator/)
 
-Node module for user authorization based on different authorization policies.
+Node module for user authorization based on different authorization policies. 
+
+[Here](https://github.com/ivpusic/authorizator-example) you can find example of using ``authorizator`` module.
 
 ### Installation
 
@@ -202,7 +204,6 @@ authorizator.unuse(SomeAuthorizationPolicy)
 ```
 
 ### TODO
-- Example app
 - Tests
 
 ## Contact
